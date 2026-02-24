@@ -43,10 +43,6 @@ def load_listings(f):
             listings.append(row_dict)
     return listings
 
-
-
-
-
 ###############################################################################
 ##### TASK 2: CALCULATION FUNCTION (single calculation)
 ###############################################################################
@@ -65,8 +61,20 @@ def calculate_avg_price_by_neighbourhood_group_and_room(listings):
         dict mapping (neighbourhood_group, room_type) -> average_price (float)
         e.g. { ('Downtown', 'Entire home/apt'): 123.45, ... }
     """
-    pass
-
+    map_dict = {}
+    total_dict = {}
+    count_dict = {}
+    for listing in listings:
+        pair = (listing['neighbourhood_group'], listing['room_type'])
+        if pair in total_dict:
+            total_dict[pair] += float(listing['price'])
+            count_dict[pair] += 1
+        else:
+            total_dict[pair] = float(listing['price'])
+            count_dict[pair] = 1 
+    for key in total_dict:
+        map_dict[key] = total_dict[key] / count_dict[key]
+    return map_dict
 
 
 ###############################################################################
